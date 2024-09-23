@@ -1,0 +1,366 @@
+---
+- # ====== List of Values: DEMO_PROJ_TEAM_MEMBERS.USERNAME =====
+  id: 101819972709353432029
+  identification: 
+    name: DEMO_PROJ_TEAM_MEMBERS.USERNAME
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: DEMO_PROJ_TEAM_MEMBERS
+
+  column-mapping: 
+    return: ID
+    display: USERNAME
+    default-sort: USERNAME
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: DEMO_PROJ_STATUS.DESCRIPTION ========
+  id: 101819974273728432032
+  identification: 
+    name: DEMO_PROJ_STATUS.DESCRIPTION
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: DEMO_PROJ_STATUS
+
+  column-mapping: 
+    return: CD
+    display: DESCRIPTION
+    default-sort: DESCRIPTION
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: DEMO_PROJECTS.NAME ==================
+  id: 101819995162319432414
+  identification: 
+    name: DEMO_PROJECTS.NAME
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: DEMO_PROJECTS
+
+  column-mapping: 
+    return: ID
+    display: NAME
+    default-sort: NAME
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: DEMO_PROJ_MILESTONES.NAME ===========
+  id: 101820015996234432795
+  identification: 
+    name: DEMO_PROJ_MILESTONES.NAME
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: DEMO_PROJ_MILESTONES
+
+  column-mapping: 
+    return: ID
+    display: NAME
+    default-sort: NAME
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: DESKTOP THEME STYLES ================
+  id: 101820131816604432898
+  identification: 
+    name: DESKTOP THEME STYLES
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      select s.name d,
+             s.theme_style_id r
+        from apex_application_theme_styles s,
+             apex_application_themes t
+       where s.application_id = :app_id
+         and t.application_id = s.application_id
+         and t.theme_number   = s.theme_number
+         and t.is_current     = 'Yes'
+       order by 1
+
+  column-mapping: 
+    return: R
+    display: D
+    default-sort: Use Order By from Query
+
+- # ====== List of Values: USER_THEME_PREFERENCE ===============
+  id: 101820132592189432902
+  identification: 
+    name: USER_THEME_PREFERENCE
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Static Values
+
+  entries: 
+  - # ====== Entry: Allow End Users to choose Theme Style ========
+    id: 101820132892867432902
+    entry: 
+      sequence: 1
+      display: Allow End Users to choose Theme Style
+      return: Yes
+
+- # ====== List of Values: TIMEFRAME (4 WEEKS) =================
+  id: 101820152257539433305
+  identification: 
+    name: TIMEFRAME (4 WEEKS)
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      select disp,
+             val as seconds
+        from table( apex_util.get_timeframe_lov_data )
+       order by insert_order
+
+  column-mapping: 
+    return: SECONDS
+    display: DISP
+    default-sort: Use Order By from Query
+
+- # ====== List of Values: VIEW_AS_REPORT_CHART ================
+  id: 101820198610517433371
+  identification: 
+    name: VIEW_AS_REPORT_CHART
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Static Values
+
+  entries: 
+  - # ====== Entry: Add Report Page ==============================
+    id: 101820198984258433371
+    entry: 
+      sequence: 1
+      display: Add Report Page
+      return: REPORT
+
+    globalization: 
+      template: <span class="fa fa-table" aria-hidden="true"></span><span class="u-VisuallyHidden">#DISPLAY_VALUE#</span>
+
+  - # ====== Entry: Add Chart Page ===============================
+    id: 101820199388872433371
+    entry: 
+      sequence: 2
+      display: Add Chart Page
+      return: CHART
+
+    globalization: 
+      template: <span class="fa fa-pie-chart" aria-hidden="true"></span><span class="u-VisuallyHidden">#DISPLAY_VALUE#</span>
+
+- # ====== List of Values: ACCESS_ROLES ========================
+  id: 101820232394576433981
+  identification: 
+    name: ACCESS_ROLES
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      select role_name d, role_id r
+      from APEX_APPL_ACL_ROLES where application_id = :APP_ID 
+      order by 1
+
+  column-mapping: 
+    return: R
+    display: D
+    default-sort: Use Order By from Query
+
+- # ====== List of Values: EMAIL_USERNAME_FORMAT ===============
+  id: 101820239834130433990
+  identification: 
+    name: EMAIL_USERNAME_FORMAT
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Static Values
+
+  entries: 
+  - # ====== Entry: Email Addresses ==============================
+    id: 101820240169077433991
+    entry: 
+      sequence: 1
+      display: Email Addresses
+      return: EMAIL
+
+- # ====== List of Values: FEEDBACK_RATING =====================
+  id: 101820257272332434192
+  identification: 
+    name: FEEDBACK_RATING
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Static Values
+
+  entries: 
+  - # ====== Entry: Positive =====================================
+    id: 101820257540339434192
+    entry: 
+      sequence: 1
+      display: Positive
+      return: 3
+
+    globalization: 
+      template: <span title="#DISPLAY_VALUE#" aria-label="#DISPLAY_VALUE#"><span class="fa fa-smile-o fa-2x feedback-positive" aria-hidden="true" ></span></span>
+
+  - # ====== Entry: Neutral ======================================
+    id: 101820257919814434193
+    entry: 
+      sequence: 2
+      display: Neutral
+      return: 2
+
+    globalization: 
+      template: <span title="#DISPLAY_VALUE#" aria-label="#DISPLAY_VALUE#"><span class="fa fa-emoji-neutral fa-2x feedback-neutral" aria-hidden="true" ></span></span>
+
+  - # ====== Entry: Negative =====================================
+    id: 101820258303146434193
+    entry: 
+      sequence: 3
+      display: Negative
+      return: 1
+
+    globalization: 
+      template: <span title="#DISPLAY_VALUE#" aria-label="#DISPLAY_VALUE#"><span class="fa fa-frown-o fa-2x feedback-negative" aria-hidden="true" ></span></span>
+
+- # ====== List of Values: FEEDBACK_STATUS =====================
+  id: 101820269668598434201
+  identification: 
+    name: FEEDBACK_STATUS
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Static Values
+
+  entries: 
+  - # ====== Entry: No Action ====================================
+    id: 101820269972887434201
+    entry: 
+      sequence: 1
+      display: No Action
+      return: 0
+
+  - # ====== Entry: Acknowledged =================================
+    id: 101820270385068434201
+    entry: 
+      sequence: 2
+      display: Acknowledged
+      return: 1
+
+  - # ====== Entry: Open =========================================
+    id: 101820270762410434202
+    entry: 
+      sequence: 3
+      display: Open
+      return: 3
+
+  - # ====== Entry: Closed =======================================
+    id: 101820271111049434202
+    entry: 
+      sequence: 4
+      display: Closed
+      return: 4
+
+- # ====== List of Values: TEAM MEMBERS ========================
+  id: 125378090452067167504
+  identification: 
+    name: TEAM MEMBERS
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT FULL_NAME AS display, ID AS return
+      FROM DEMO_PROJ_TEAM_MEMBERS
+      ORDER BY 1
+
+  column-mapping: 
+    return: RETURN
+    display: DISPLAY
+    default-sort: Use Order By from Query
+
+- # ====== List of Values: STATUSES ============================
+  id: 125386832582009240881
+  identification: 
+    name: STATUSES
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      SELECT DESCRIPTION AS display, CD AS return
+      FROM DEMO_PROJ_STATUS
+      ORDER BY 1
+
+  column-mapping: 
+    return: RETURN
+    display: DISPLAY
+    default-sort: Use Order By from Query
+
+- # ====== List of Values: MILESTONES ==========================
+  id: 125414552005112456909
+  identification: 
+    name: MILESTONES
+
+  subscription: 
+    version-number: 1
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      select name as DISPLAY, ID as RETURN
+      from DEMO_PROJ_MILESTONES
+      order by 1
+
+  column-mapping: 
+    return: RETURN
+    display: DISPLAY
+    default-sort: Use Order By from Query
+
